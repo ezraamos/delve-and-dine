@@ -6,7 +6,7 @@ type TRecipesStore = {
   setRecipes: (recipes: TRecipe[]) => void;
   ingredients: string[];
   setIngredients: (ingredients: string[]) => void;
-  filteredRecipes: TRecipe[];
+  filteredRecipes: TRecipe[] | undefined;
   setFilteredRecipes: (recipes: TRecipe[]) => void;
 };
 
@@ -15,6 +15,6 @@ export const useSearchedRecipes = create<TRecipesStore>((set) => ({
   setRecipes: (recipes: TRecipe[]) => set({ recipes }),
   ingredients: [],
   setIngredients: (ingredients: string[]) => set({ ingredients }),
-  filteredRecipes: [],
+  filteredRecipes: undefined,
   setFilteredRecipes: (recipes: TRecipe[]) => set({ filteredRecipes: recipes }),
 }));

@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-A simple, intuitive recipe filter application that allows users to filter recipes based on dietary preferences and meal types using the Spoonacular API. This README provides an overview of the application setup and the key architectural decisions made to build a responsive, user-friendly experience.
+An suggests recipes based on ingredients users have, with filters for diet and meal type. It ranks recipes by available ingredients, helping users decide what to cook.
 
 ## Getting Started
 
@@ -18,7 +18,7 @@ To get the project up and running on your local machine, follow these steps:
 2. Install dependencies:
 
    ```
-   npm install
+   pnpm install
    ```
 
 3. Set up environment variables:
@@ -31,7 +31,7 @@ To get the project up and running on your local machine, follow these steps:
 4. Run the development server:
 
    ```
-   npm run dev
+   pnpm run dev
    ```
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.

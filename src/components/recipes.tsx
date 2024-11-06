@@ -6,7 +6,7 @@ import { useSearchedRecipes } from '@/lib/store/searched-recipes.store';
 
 const Recipes = () => {
   const filteredRecipes = useSearchedRecipes((state) => state.filteredRecipes);
-
+  if (!filteredRecipes) return;
   if (filteredRecipes.length === 0) {
     return (
       <div className='flex gap-2 text-center my-20 text-lg'>
