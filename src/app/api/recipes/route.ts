@@ -16,8 +16,9 @@ export async function GET(req: NextRequest) {
       includeIngredients: ingredients,
       diet: diet,
       type: mealType,
-      number: 5,
+      number: 10,
       fillIngredients: true,
+      addRecipeInformation: true,
       sort: 'max-used-ingredients',
     };
 

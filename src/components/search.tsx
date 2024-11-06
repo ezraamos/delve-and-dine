@@ -13,16 +13,9 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import axios from 'axios';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { dietTypes, mealTypes } from '@/lib/data/spoonacular';
 import { useSearchedRecipes } from '@/lib/store/searched-recipes.store';
 import { Badge } from './ui/badge';
+import Filter from './filter';
 
 const formSchema = z.object({
   ingredients: z.string().min(1, 'Please enter at least one ingredient'),
@@ -53,7 +46,7 @@ const Search = () => {
     return response.data;
   };
 
-  const { mutate, isPending } = useMutation({
+  const { mutate, isPending, isSuccess } = useMutation({
     mutationFn: getRecipesByIngredients,
     onSuccess: (data) => {
       setRecipes(data.results);
@@ -61,13 +54,23 @@ const Search = () => {
   });
 
   const handleSubmit = (values: TFormSchema) => {
-    setIngredients(values.ingredients.split(','));
+    setIngredients(
+      values.ingredients
+        .split(',')
+        .map((ingredient) =>
+          ingredient.trim().replace(/\s+/g, ' ').toLowerCase()
+        )
+    );
     mutate(values);
   };
+
   return (
     <section className='w-[min(100%,38rem)] '>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)}>
+        <form
+          className='flex flex-col gap-3'
+          onSubmit={form.handleSubmit(handleSubmit)}
+        >
           <FormField
             control={form.control}
             name='ingredients'
@@ -80,7 +83,7 @@ const Search = () => {
                         placeholder='Enter ingredients to find recipes, to be e.g.(egg, tomato, chicken)'
                         {...field}
                       />
-                      <Button type='submit' className='bg-stone-700 '>
+                      <Button type='submit' className='bg-stone-700'>
                         {isPending ? (
                           <div className='h-5 w-5 animate-spin rounded-full border-b-2 border-stone-400'></div>
                         ) : (
@@ -94,74 +97,21 @@ const Search = () => {
               );
             }}
           />
-          <div className='mt-4 flex-col sm:flex-row flex justify-start items-start sm:items-center gap-3'>
-            <FormField
-              control={form.control}
-              name='diet'
-              render={({ field }) => (
-                <FormItem>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder='Select a diet type (optional)' />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {dietTypes.map((diet) => (
-                        <SelectItem key={diet} value={diet}>
-                          {diet.charAt(0).toUpperCase() + diet.slice(1)}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name='type'
-              render={({ field }) => (
-                <FormItem>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder='Select a meal type (optional)' />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {mealTypes.map((type) => (
-                        <SelectItem key={type} value={type}>
-                          {type.charAt(0).toUpperCase() + type.slice(1)}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
         </form>
       </Form>
+
       <div className='my-10 flex justify-center flex-wrap'>
         {ingredients.map((ingredient, index) => (
           <Badge
             key={index}
             variant='outline'
-            className='mr-2 bg-stone-600 text-stone-200'
+            className='m-0.5 bg-stone-600 text-stone-200'
           >
             {ingredient}
           </Badge>
         ))}
       </div>
+      {isSuccess && <Filter />}
     </section>
   );
 };
