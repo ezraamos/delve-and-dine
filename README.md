@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Delve and Dine
+
+## Project Overview
+
+A simple, intuitive recipe filter application that allows users to filter recipes based on dietary preferences and meal types using the Spoonacular API. This README provides an overview of the application setup and the key architectural decisions made to build a responsive, user-friendly experience.
 
 ## Getting Started
 
-First, run the development server:
+To get the project up and running on your local machine, follow these steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Clone the repository:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   ```
+   git clone https://github.com/ezraamos/delve-and-dine.git
+   cd nextjs-soopancular-app
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. Install dependencies:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```
+   npm install
+   ```
 
-## Learn More
+3. Set up environment variables:
+   Create a `.env.local` file in the root directory and add your SpoonaCular API key:
 
-To learn more about Next.js, take a look at the following resources:
+   ```
+   SOOPANCULAR_API_KEY=your_api_key_here
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. Run the development server:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```
+   npm run dev
+   ```
 
-## Deploy on Vercel
+5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Architectural Decisions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Next.js**: Chosen for its server-side rendering capabilities, optimized performance, and seamless integration with React. The App Router provides an intuitive file-based routing system.
+
+2. **Tailwind CSS**: Utilized for rapid UI development with its utility-first approach, allowing for easy customization and maintaining a consistent design system.
+
+3. **shadcn/ui**: Integrated for its high-quality, accessible components that work seamlessly with Tailwind CSS, reducing development time and ensuring a polished user interface.
+
+4. **Tanstack Query**: Implemented for efficient server state management and data synchronization. It simplifies data fetching, caching, and updating, reducing boilerplate code and improving application performance through optimized request handling and caching strategies.
+
+5. **Spoonacular API**: The Spoonacular API provides access to a vast database of recipes, nutrition info, and meal planning tools. It supports filters like diet, cuisine, and meal type, ideal for apps focused on personalized recipes and nutrition.
+
+6. **API Routes**: Leveraged Next.js API routes to create a backend layer, securely handling API keys and providing a clean separation between frontend and backend logic.
